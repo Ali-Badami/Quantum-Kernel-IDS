@@ -1,0 +1,30 @@
+
+\begin{table*}[!t]
+\centering
+\caption{Ablation Study Results on SWaT Dataset}
+\label{tab:ablation}
+\begin{tabular}{llcccccc}
+\toprule
+\textbf{Ablation} & \textbf{Config} & \textbf{Samples} & \textbf{Variance} & \textbf{k=15 F1} & \textbf{k=20 F1} & \textbf{k=25 F1} & \textbf{Time (s)} \\
+\midrule
+\multirow{4}{*}{\parbox{2cm}{PCA\\Components}} 
+& 10 qubits & 500 & 96.26% & 0.918$\pm$0.020 & 0.948$\pm$0.012 & 0.946$\pm$0.020 & 2.8 \\
+& 15 qubits & 500 & 98.73% & 0.928$\pm$0.007 & 0.948$\pm$0.012 & 0.946$\pm$0.013 & 12.9 \\
+& 20 qubits $\star$ & 500 & 99.59% & 0.931$\pm$0.011 & 0.946$\pm$0.015 & 0.950$\pm$0.013 & 605.7 \\
+& 25 qubits & 100 & 100.00% & 0.935$\pm$0.020 & 0.942$\pm$0.016 & 0.950$\pm$0.015 & N/A \\
+\midrule
+\multirow{2}{*}{\parbox{2cm}{Feature Map\\Reps}}
+& reps=1 $\star$ & 500 & 99.6\% & 0.931$\pm$0.011 & 0.946$\pm$0.015 & 0.950$\pm$0.013 & 622.7 \\
+& reps=2 & 500 & 99.6\% & 0.953$\pm$0.017 & 0.952$\pm$0.015 & 0.958$\pm$0.013 & 1118.1 \\
+\midrule
+\multirow{2}{*}{\parbox{2cm}{Entanglement\\Type}}
+& Linear $\star$ & 500 & 99.6\% & 0.931$\pm$0.011 & 0.946$\pm$0.015 & 0.950$\pm$0.013 & 577.4 \\
+& Circular & 500 & 99.6\% & 0.931$\pm$0.011 & 0.946$\pm$0.015 & 0.957$\pm$0.009 & 593.5 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\small
+\item $\star$ denotes baseline configuration (20 qubits, reps=1, linear entanglement, k=20).
+\item All results from 5-seed multi-split cross-validation with Random Forest classifier.
+\end{tablenotes}
+\end{table*}
