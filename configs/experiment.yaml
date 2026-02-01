@@ -1,0 +1,98 @@
+# Experiment configuration for quantum kernel sensor selection
+# Modify these settings to customize your experiments
+
+# Dataset configuration
+dataset:
+  name: swat  # Options: swat, wadi, hai
+  data_dir: data/
+
+# Preprocessing settings
+preprocessing:
+  # Number of samples to extract (per class)
+  n_samples: 1000
+  # Temporal subsampling stride (reduces autocorrelation)
+  stride: 100
+  # Remove zero-variance features
+  remove_zero_variance: true
+  # PCA dimensionality reduction
+  pca_components: 20
+  # Normalization range for quantum encoding
+  quantum_range: [0, 6.283185]  # [0, 2*pi]
+
+# Quantum kernel settings
+quantum:
+  # Number of qubits (should match pca_components or n_features)
+  n_qubits: 20
+  # Feature map configuration
+  feature_map: ZZFeatureMap
+  entanglement: linear  # Options: linear, circular, full
+  reps: 1  # Number of feature map repetitions
+  # Regularization for kernel matrix
+  regularization: 1.0e-6
+
+# Sensor selection settings
+selection:
+  # Number of sensors to select
+  k_values: [5, 10, 15, 20, 25, 30]
+  # Selection algorithm
+  algorithm: lazy_greedy  # Options: greedy, lazy_greedy
+  # Regularization for log-det computation
+  regularization: 1.0e-6
+  # Baseline methods to compare
+  baselines:
+    - variance
+    - correlation
+    - random
+    - rbf_kernel
+
+# Evaluation settings
+evaluation:
+  # Random seeds for multi-seed evaluation
+  seeds: [42, 123, 456, 789, 1000]
+  # Train/test split ratio
+  test_ratio: 0.2
+  # Classifiers to evaluate
+  classifiers:
+    - ocsvm
+    - iforest
+    - rf
+    - svm
+  # Primary classifier for results
+  primary_classifier: rf
+  # Significance level
+  alpha: 0.05
+  # Confidence level for intervals
+  confidence: 0.95
+
+# Hardware execution settings (IBM Quantum)
+hardware:
+  # Whether to run on real hardware
+  enabled: false
+  # Backend to use
+  backend: ibm_fez
+  # Number of samples (smaller for hardware)
+  n_samples: 20
+  # Shots per circuit
+  shots: 1024
+  # Optimization level
+  optimization_level: 3
+
+# Output settings
+output:
+  # Base directory for results
+  results_dir: results/
+  # Checkpoint directory
+  checkpoint_dir: checkpoints/
+  # Save intermediate results
+  save_checkpoints: true
+  # Checkpoint frequency
+  checkpoint_freq: 100
+
+# Ablation study settings
+ablation:
+  # PCA component values to test
+  pca_values: [10, 15, 20, 25]
+  # Feature map repetition values
+  rep_values: [1, 2]
+  # Entanglement types to test
+  entanglement_types: [linear, circular]
